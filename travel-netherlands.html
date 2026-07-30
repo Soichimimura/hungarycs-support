@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>オランダ1週間、幼馴染の家で泊まる。— ハンガリーCS留学支援</title>
+  <meta name="description" content="アムステルダムの幼馴染の家を拠点に、自転車と徒歩でオランダを歩き回った1週間の記録。中1日はベルギー日帰り。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..600,0..100;1,9..144,400..600,0..100&family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Old+Mincho:wght@400;500;700&family=Yomogi&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <style>
+    /* ==========================================================================
+       travel-netherlands.html — day-by-day timeline with home-base hub
+       ========================================================================== */
+
+    /* Override the shared page-title to be smaller on this page */
+    .page-hero .page-title {
+      font-size: clamp(26px, 4vw, 42px);
+      margin-bottom: 20px;
+    }
+
+    /* ========== HOME BASE banner (unique to Netherlands) ========== */
+    .home-base {
+      background: var(--paper-2);
+      border: 1px solid var(--rule);
+      border-radius: 20px;
+      padding: 24px 28px;
+      margin: 32px 0 48px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .home-base-icon {
+      flex-shrink: 0;
+      color: var(--paprika);
+      width: 40px;
+      height: 40px;
+    }
+
+    .home-base-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .home-base-label {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--paprika);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      font-variation-settings: "opsz" 14, "SOFT" 100;
+    }
+
+    .home-base-place {
+      font-family: var(--f-jp-display);
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .home-base-note {
+      font-size: 13px;
+      color: var(--ink-2);
+      line-height: 1.55;
+    }
+
+    @media (max-width: 720px) {
+      .home-base {
+        padding: 20px;
+        gap: 16px;
+      }
+      .home-base-icon {
+        width: 32px;
+        height: 32px;
+      }
+      .home-base-place {
+        font-size: 15px;
+      }
+      .home-base-note {
+        font-size: 12px;
+      }
+    }
+
+    /* ========== Day-nav (sticky) ========== */
+    .day-nav {
+      position: sticky;
+      top: 63px;
+      z-index: 40;
+      background: rgba(247, 243, 234, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .day-nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: safe center;
+      gap: 8px;
+      padding: 12px 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      transition: padding 0.2s ease;
+    }
+
+    .day-nav-inner::-webkit-scrollbar { display: none; }
+
+    /* Compact state: activated when nav is stuck (via JS) */
+    .day-nav.is-stuck .day-nav-inner {
+      padding: 5px 0;
+    }
+
+    /* When day-nav is stuck, hide the main nav's bottom border
+       (avoids the "double line" look under the sticky header) */
+    body.is-day-nav-stuck .nav {
+      border-bottom-color: transparent;
+    }
+
+    .day-nav-label {
+      font-family: var(--f-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 8px;
+      white-space: nowrap;
+    }
+
+    .day-nav a {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink-2);
+      padding: 3px 10px;
+      white-space: nowrap;
+      transition: color 0.15s ease;
+      font-variation-settings: "opsz" 16, "SOFT" 70;
+    }
+
+    .day-nav a:hover { color: var(--paprika); }
+
+    .day-nav a.is-active {
+      color: var(--paprika);
+      border-bottom: 1.5px solid var(--paprika);
+    }
+
+    /* Small star mark next to Day 02 in nav (Belgium day) */
+    .day-nav a[href="#day2"]::after {
+      content: " ★";
+      color: var(--paprika);
+      font-size: 10px;
+      vertical-align: super;
+    }
+
+    /* ========== Timeline ========== */
+    .day-timeline {
+      position: relative;
+      padding-left: 56px;
+      margin: 0;
+    }
+
+    .day-timeline::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 24px;
+      bottom: 24px;
+      width: 1.5px;
+      background: var(--ink-2);
+    }
+
+    .day {
+      position: relative;
+      margin-bottom: 56px;
+    }
+
+    .day:last-child {
+      margin-bottom: 0;
+    }
+
+    .day::before {
+      content: "";
+      position: absolute;
+      left: -54px;
+      top: 22px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--paprika);
+      border: 2.5px solid var(--paper);
+      box-shadow: 0 0 0 1.5px var(--ink);
+      z-index: 2;
+    }
+
+    .day::after {
+      content: "";
+      position: absolute;
+      left: -40px;
+      top: 28px;
+      width: 40px;
+      height: 1.5px;
+      background: var(--ink-2);
+    }
+
+    /* Special: Day 02 (Belgium excursion) — filled star dot */
+    .day--intl::before {
+      background: var(--ink);
+      transform: scale(1.15);
+    }
+
+    .day-card {
+      border: 1.5px solid var(--ink);
+      border-radius: 24px;
+      padding: 28px 32px 32px;
+      background: var(--paper);
+      box-shadow: 3px 3px 0 var(--paper-2);
+    }
+
+    /* Day badge (Belgium day trip) */
+    .day-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px 5px;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: 10.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-variation-settings: "opsz" 12, "SOFT" 100;
+    }
+
+    .day-eyebrow {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      color: var(--paprika);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      font-variation-settings: "opsz" 14, "SOFT" 100;
+    }
+
+    .day-title {
+      font-family: var(--f-jp-display);
+      font-size: clamp(20px, 2.4vw, 26px);
+      line-height: 1.3;
+      font-weight: 500;
+      margin: 0 0 12px;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+    }
+
+    .day-title .arrow {
+      color: var(--paprika);
+      font-family: var(--f-display);
+      font-weight: 400;
+      padding: 0 4px;
+    }
+
+    .day-lede {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: clamp(14px, 1.5vw, 16px);
+      line-height: 1.55;
+      color: var(--ink-2);
+      margin: 0 0 28px;
+      font-variation-settings: "opsz" 18, "SOFT" 70;
+      max-width: 42ch;
+    }
+
+    /* Event list */
+    .events {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .event {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .event-head {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .event-time {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--paprika);
+      letter-spacing: 0.04em;
+      min-width: 56px;
+      font-variant-numeric: tabular-nums;
+      font-variation-settings: "opsz" 16, "SOFT" 100;
+    }
+
+    .event-place {
+      font-family: var(--f-jp-display);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4;
+      letter-spacing: 0.02em;
+    }
+
+    .event-comment {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--ink-2);
+      margin: 0 0 0 70px;
+      max-width: 50ch;
+    }
+
+    .event-photos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin: 10px 0 0 70px;
+    }
+
+    /* 広い画面（PC など）では 1 行あたり 2 枚固定に。
+       個別の .g1 / .g2 / .g-sm / .single、およびインライン style は
+       specificity と cascade のおかげで従来通り優先される。
+       あわせて左インデントを 70px → 40px に少しだけ詰めて、写真を横にちょい大きく。 */
+    @media (min-width: 721px) {
+      .event-photos {
+        grid-template-columns: repeat(2, 1fr);
+        margin-left: 40px;
+      }
+    }
+
+    .event-photos.single {
+      grid-template-columns: minmax(200px, 340px);
+    }
+
+    .photo {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: var(--paper-2);
+      overflow: hidden;
+      margin: 0;
+      border: 1px solid var(--rule);
+    }
+
+    .photo::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 14px,
+        rgba(122, 115, 104, 0.15) 14px,
+        rgba(122, 115, 104, 0.15) 15px
+      );
+    }
+
+    .photo::after {
+      content: attr(data-label);
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-variation-settings: "opsz" 14, "SOFT" 100;
+    }
+
+    .photo img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      z-index: 1;
+    }
+
+    /* image display helpers */
+    .photo--full {
+      aspect-ratio: auto;
+      background: var(--paper-2);
+    }
+    .photo--full img {
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* End CTAs */
+    .end-ctas {
+      margin-top: 56px;
+      padding-top: 36px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      .day-timeline {
+        padding-left: 0;
+      }
+
+      .day-timeline::before,
+      .day::before,
+      .day::after {
+        display: none;
+      }
+
+      .day-card {
+        border-radius: 16px;
+        padding: 24px 20px 26px;
+        box-shadow: 2px 2px 0 var(--paper-2);
+      }
+
+      .event-comment,
+      .event-photos {
+        margin-left: 0;
+      }
+
+      .event-time {
+        min-width: 52px;
+        font-size: 13px;
+      }
+
+      .event-place {
+        font-size: 14px;
+      }
+
+      .event-comment {
+        font-size: 13px;
+      }
+
+      .day {
+        margin-bottom: 40px;
+      }
+
+      .day-nav {
+        top: 61px;
+      }
+
+      .day-nav-label {
+        display: none;
+      }
+
+      /* 狭い画面では横スクロールにせず、文字とパディングを縮めて 1 画面に収める */
+      .day-nav-inner {
+        overflow-x: hidden;
+        gap: 4px;
+      }
+      .day-nav a {
+        font-size: 13px;
+        padding: 3px 6px;
+      }
+
+    .nav { position: static !important; }
+    .day-nav { top: 0 !important; }
+    }
+
+    @media (max-width: 480px) {
+      .day-nav-inner { gap: 2px; }
+      .day-nav a {
+        font-size: 11px;
+        padding: 2px 4px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .day-nav a {
+        font-size: 10px;
+        padding: 2px 3px;
+      }
+    }
+  </style>
+  <style>
+    /* === Travel nav rework ===
+       広い画面（>=1100px）に限り、スクロール時に真ん中のリンク
+       （対象/運営者/相談メニュー/記事）を消し、day-nav（JUMP TO Day 01…Day 07）
+       をメインナビの真ん中に重ねて表示する。ブランドロゴと「相談する」は常時表示。
+       狭い画面ではリンクも day-nav も横幅が足りず重なるので、元のレイアウト
+       （メインナビ＋その下に day-nav）を維持する。
+       .is-day-nav-stuck は元 inline script が付けている body クラス。 */
+    @media (min-width: 1100px) {
+      body.is-day-nav-stuck .nav-links { display: none; }
+      body.is-day-nav-stuck .day-nav {
+        top: 0;
+        z-index: 51;
+        background: transparent;
+        backdrop-filter: none;
+        border-bottom: none;
+      }
+    }
+    .day-nav-inner,
+    .day-nav.is-stuck .day-nav-inner { padding: 18px 0; }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================== NAV -->
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a href="index.html" class="brand">
+        <svg class="brand-mark" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="0" width="26" height="26" fill="#22496B"/>
+          <path d="M4 20 Q 13 4, 22 20" stroke="#C1462F" stroke-width="1.8" fill="none"/>
+          <circle cx="13" cy="13" r="1.5" fill="#F7F3EA"/>
+        </svg>
+        ハンガリーCS留学支援
+      </a>
+      <div class="nav-links">
+        <a href="index.html#audience">対象</a>
+        <a href="about.html">運営者</a>
+        <a href="services.html">相談メニュー</a>
+        <a href="travel.html" style="color:var(--paprika);">記事</a>
+      </div>
+      <a href="index.html#contact" class="nav-cta">相談する</a>
+    </div>
+  </nav>
+
+  <!-- =========================================================== PAGE HERO -->
+  <header class="page-hero">
+    <div class="wrap-narrow">
+      <a href="travel.html" class="back-link">旅行記一覧に戻る</a>
+      <div class="eyebrow"><span class="num">02</span>NETHERLANDS · 7 DAYS</div>
+      <h1 class="page-title">オランダ1週間、幼馴染の家で泊まる。</h1>
+      <p class="page-lede">
+        アムステルダムの幼馴染の家を拠点に、自転車と徒歩で回った1週間の記録。中1日、ベルギーへ日帰り。
+      </p>
+    </div>
+  </header>
+
+  <!-- =========================================================== DAY NAV (sticky) -->
+  <nav class="day-nav" aria-label="日別ナビゲーション">
+    <div class="wrap-narrow">
+      <div class="day-nav-inner">
+        <span class="day-nav-label">Jump to</span>
+        <a href="#day1">Day 01</a>
+        <a href="#day2">Day 02</a>
+        <a href="#day3">Day 03</a>
+        <a href="#day4">Day 04</a>
+        <a href="#day5">Day 05</a>
+        <a href="#day6">Day 06</a>
+        <a href="#day7">Day 07</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- =========================================================== BODY -->
+  <section class="section">
+    <div class="wrap-narrow">
+
+      <!-- HOME BASE banner -->
+      <aside class="home-base" aria-label="拠点情報">
+        <svg class="home-base-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M5 14 L16 5 L27 14 L27 26 L5 26 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M13 26 L13 18 L19 18 L19 26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+        <div class="home-base-text">
+          <div class="home-base-label">Home Base</div>
+          <div class="home-base-place">Amsterdam · 幼馴染の家</div>
+          <div class="home-base-note">全7日ここに帰った。ベルギー日帰りの日以外、拠点はずっとここ。</div>
+        </div>
+      </aside>
+
+      <!-- Timeline -->
+      <div class="day-timeline">
+
+        <!-- ============= DAY 01 ============= -->
+        <article class="day" id="day1">
+          <div class="day-card">
+            <div class="day-eyebrow">Day 01</div>
+            <h2 class="day-title">Eindhoven <span class="arrow">→</span> Amsterdam</h2>
+            <p class="day-lede">Eindhoven経由でAmsterdam。幼馴染の家、これから1週間の拠点。到着当日から世界一のポテトを食う。</p>
+
+            <ol class="events">
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">朝</span>
+                  <span class="event-place">Eindhoven 到着</span>
+                </div>
+                <p class="event-comment">「なんでまずEindhoven？」って感じやけど、オランダに着陸！</p>
+                <div class="event-photos">
+                  <figure class="photo" data-label="Day 01 · Photo 1">
+                    <img src="netherlands-photos/netherlands-day1-1a.jpg" alt="Eindhoven のボーリングピンのオブジェ" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Day 01 · Photo 2">
+                    <img src="netherlands-photos/netherlands-day1-1b.jpg" alt="Eindhovenへ向かう機体" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">12:00</span>
+                  <span class="event-place">Amsterdam 到着</span>
+                </div>
+                <p class="event-comment">首都到着。1週間の主戦場。少し時間があったので探索したら、日本企業の商品がってなんか嬉しかった。</p>
+                <div class="event-photos">
+                  <figure class="photo" data-label="Day 01 · Photo 2">
+                    <img src="netherlands-photos/netherlands-day1-2d.jpg" alt="ichi-e という日本食レストラン" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Day 01 · Photo 3">
+                    <img src="netherlands-photos/netherlands-day1-2a.jpg" alt="電気店で見つけたNintendo Switchのソフト棚" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Day 01 · Photo 4">
+                    <img src="netherlands-photos/netherlands-day1-2b.jpg" alt="Nintendo Switchコーナー" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Day 01 · Photo 5">
+                    <img src="netherlands-photos/netherlands-day1-2c.jpg" alt="PlayStationコーナー" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">14:00</span>
+                  <span class="event-place">幼馴染の家、到着</span>
+                </div>
+                <p class="event-comment">今日から7日間の拠点。</p>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">15:00</span>
+                  <span class="event-place">美術館などを徘徊</span>
+                </div>
+                <p class="event-comment">幼馴染の案内で、アムステルダムの街を歩き回る。<br>地元の人と歩く街、視点が違う。美術館やアンティークショップも、ふらっと巡った。<br>"勝訴"と書かれたTシャツ発見！</p>
+                <div class="event-photos">
+                  <figure class="photo" data-label="Amsterdam · 2">
+                    <img src="netherlands-photos/netherlands-day1-4b.jpg" alt="アムステルダムの街並み" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Amsterdam · 3">
+                    <img src="netherlands-photos/netherlands-day1-4c.jpg" alt="アムステルダムの街並み" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Amsterdam · 4">
+                    <img src="netherlands-photos/netherlands-day1-4d.jpg" alt="アムステルダムの街並み" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Amsterdam · 5">
+                    <img src="netherlands-photos/netherlands-day1-4e.jpg" alt="いつもの動物園周辺コース" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Amsterdam · 6">
+                    <img src="netherlands-photos/netherlands-day1-4f.jpg" alt="いつもの動物園周辺コース" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Amsterdam · 7">
+                    <img src="netherlands-photos/netherlands-day1-4g.jpg" alt="ギャラリーで見つけたオブジェ" loading="lazy" style="object-position: center 35%;" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Amsterdam · 8">
+                    <img src="netherlands-photos/netherlands-day1-4h.jpg" alt="ギャラリーのアート作品" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Amsterdam · 9">
+                    <img src="netherlands-photos/netherlands-day1-4i.jpg" alt="日本語プリントのショップウィンドウ" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Amsterdam · 10">
+                    <img src="netherlands-photos/netherlands-day1-4j.jpg" alt="アンティークショップの店内" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Amsterdam · 11">
+                    <img src="netherlands-photos/netherlands-day1-4k.jpg" alt="デルフト焼きの陳列棚" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">夕方</span>
+                  <span class="event-place">世界一のポテト</span>
+                </div>
+                <p class="event-comment">幼馴染に「これが世界一のポテトやで」って紹介される。<br>確かに美味かった。</p>
+                <div class="event-photos single">
+                  <figure class="photo" data-label="Day 01 · Photo 5">
+                    <img src="netherlands-photos/netherlands-day1-5.jpg" alt="世界一のポテト（Mannekenpisのフリッツ）" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </article>
+
+        <!-- ============= DAY 02 (Belgium day trip) ============= -->
+        <article class="day day--intl" id="day2">
+          <div class="day-card">
+            <span class="day-badge">★ Belgium Day Trip</span>
+            <div class="day-eyebrow">Day 02</div>
+            <h2 class="day-title">Amsterdam <span class="arrow">→</span> Antwerp</h2>
+            <p class="day-lede">オランダ滞在中に、ベルギー日帰り。チョコとアントワープ</p>
+
+            <ol class="events">
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">07:30</span>
+                  <span class="event-place">Amsterdam 中央駅</span>
+                </div>
+                <p class="event-comment">早朝、ベルギー行きの電車を捕まえに<br>朝７時なのにまだ暗い。<br>日帰りベルギー旅の始まりだ！</p>
+                <div class="event-photos single">
+                  <figure class="photo" data-label="Day 02 · Photo 0">
+                    <img src="netherlands-photos/netherlands-day2-0.jpg" alt="早朝のAmsterdam" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">11:00</span>
+                  <span class="event-place">ベルギー、到着</span>
+                </div>
+                <p class="event-comment">国境またぐの、EU圏内は本当に気軽。電車で普通に到着！<br>とても綺麗な駅だった。</p>
+                <div class="event-photos">
+                  <figure class="photo" data-label="Day 02 · Photo 2">
+                    <img src="netherlands-photos/netherlands-day2-1b.jpg" alt="アントワープ中央駅の外観" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Day 02 · Photo 1">
+                    <img src="netherlands-photos/netherlands-day2-1a.jpg" alt="アントワープ中央駅" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">〜13:00</span>
+                  <span class="event-place">チョコレート博物館</span>
+                </div>
+                <p class="event-comment">ベルギーといえばチョコ。試食もあって、正解の観光。</p>
+                <div class="event-photos">
+                  <figure class="photo" data-label="Choco · 1">
+                    <img src="netherlands-photos/netherlands-day2-2a.jpg" alt="チョコレート博物館" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Choco · 2">
+                    <img src="netherlands-photos/netherlands-day2-2b.jpg" alt="チョコレート博物館" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Choco · 3">
+                    <img src="netherlands-photos/netherlands-day2-2c.jpg" alt="チョコレート博物館" loading="lazy" style="filter: brightness(1.3) saturate(1.05);" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Choco · 4">
+                    <img src="netherlands-photos/netherlands-day2-2d.jpg" alt="チョコレート博物館" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Choco · 5">
+                    <img src="netherlands-photos/netherlands-day2-2e.jpg" alt="チョコレート博物館" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Choco · 6">
+                    <img src="netherlands-photos/netherlands-day2-2f.jpg" alt="チョコレート博物館" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">16:00</span>
+                  <span class="event-place">アントワープ大聖堂</span>
+                </div>
+                <p class="event-comment">中まで見学した。天井の高さがヤバい。<br>大聖堂、何度見ても圧倒される。</p>
+                <div class="event-photos" style="grid-template-columns: repeat(auto-fit, minmax(150px, 200px)); justify-content: start;">
+                  <figure class="photo photo--full" data-label="Cathedral · 1">
+                    <img src="netherlands-photos/netherlands-day2-3a.jpg" alt="アントワープ大聖堂 外観（昼）" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo photo--full" data-label="Cathedral · 2">
+                    <img src="netherlands-photos/netherlands-day2-3b.jpg" alt="アントワープ大聖堂 外観（夜）" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo photo--full" data-label="Cathedral · 3">
+                    <img src="netherlands-photos/netherlands-day2-4a.jpg" alt="アントワープ大聖堂 内部（ルーベンスの祭壇画）" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo photo--full" data-label="Cathedral · 4">
+                    <img src="netherlands-photos/netherlands-day2-4b.jpg" alt="アントワープ大聖堂 内部（ステンドグラス）" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">19:00</span>
+                  <span class="event-place">夕食、初めての「外食」</span>
+                </div>
+                <p class="event-comment">今週初めての外食。ベルギー料理、美味かった。</p>
+                <div class="event-photos single">
+                  <figure class="photo" data-label="Day 02 · Photo 5">
+                    <img src="netherlands-photos/netherlands-day2-5.jpg" alt="ベルギー料理、初めてのちゃんとした外食" loading="lazy" style="object-position: center 75%;" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">夜</span>
+                  <span class="event-place">マルクト広場、散策</span>
+                </div>
+                <p class="event-comment">アントワープ旧市街の中心広場。夜の街並みが絵。<br>めっちゃ綺麗かった！</p>
+                <div class="event-photos" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+                  <figure class="photo" data-label="Markt · 1">
+                    <img src="netherlands-photos/netherlands-day2-6a.jpg" alt="マルクト広場" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Markt · 2">
+                    <img src="netherlands-photos/netherlands-day2-6b.jpg" alt="マルクト広場" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">夜</span>
+                  <span class="event-place">日本のモノ発見、ワクワク</span>
+                </div>
+                <p class="event-comment">アントワープの街中で、日本関連のモノをいくつも発見。<br>カタカナ看板の服屋、日本語プリントのTシャツ、ナルトやドラゴンボールのアニメグッズ店、日本のお菓子を売る店まで。<br>まさかここで、となんか嬉しかった。</p>
+                <div class="event-photos">
+                  <figure class="photo" data-label="Japan · 1">
+                    <img src="netherlands-photos/netherlands-day2-7a.jpg" alt="日本関連のモノ発見" loading="lazy" style="object-position: center 12%;" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Japan · 2">
+                    <img src="netherlands-photos/netherlands-day2-7b.jpg" alt="日本関連のモノ発見" loading="lazy" style="object-position: center 8%;" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Japan · 3">
+                    <img src="netherlands-photos/netherlands-day2-7c.jpg" alt="日本関連のモノ発見" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Japan · 4">
+                    <img src="netherlands-photos/netherlands-day2-7d.jpg" alt="日本関連のモノ発見" loading="lazy" style="object-position: center 20%;" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Japan · 5">
+                    <img src="netherlands-photos/netherlands-day2-7f.jpg" alt="日本関連のモノ発見" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Japan · 6">
+                    <img src="netherlands-photos/netherlands-day2-7g.jpg" alt="日本関連のモノ発見" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">深夜</span>
+                  <span class="event-place">Amsterdam、拠点に戻る</span>
+                </div>
+                <p class="event-comment">日帰り完了。</p>
+              </li>
+            </ol>
+          </div>
+        </article>
+
+        <!-- ============= DAY 03 ============= -->
+        <article class="day" id="day3">
+          <div class="day-card">
+            <div class="day-eyebrow">Day 03</div>
+            <h2 class="day-title">Amsterdam</h2>
+            <p class="day-lede">「いつもの動物園コース」が生まれた3日目。<br>夜チャリで駆け巡って、偶然アンネ・フランクを発見。</p>
+
+            <ol class="events">
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">午後</span>
+                  <span class="event-place">動物がいっぱいのところへ</span>
+                </div>
+                <p class="event-comment">幼馴染おすすめのスポット。今回の旅で何回も行くことになる、「いつもの動物園コース」の初回。</p>
+                <div class="event-photos">
+                  <figure class="photo" data-label="Zoo Course · 1">
+                    <img src="netherlands-photos/netherlands-day3-1a.jpg" alt="いつもの動物園コース" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Zoo Course · 2">
+                    <img src="netherlands-photos/netherlands-day3-1b.jpg" alt="いつもの動物園コース" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Zoo Course · 3">
+                    <img src="netherlands-photos/netherlands-day3-1c.jpg" alt="いつもの動物園コース" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Zoo Course · 4">
+                    <img src="netherlands-photos/netherlands-day3-1d.jpg" alt="動物がいっぱいのところ" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">夜</span>
+                  <span class="event-place">自転車で、Amsterdam を駆け巡る</span>
+                </div>
+                <p class="event-comment">オランダの街は自転車の街。ライトつけて夜道を駆け巡る！<br>パリじゃ絶対にできん体験。</p>
+                <div class="event-photos" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                  <figure class="photo" data-label="Night Ride · 1">
+                    <img src="netherlands-photos/netherlands-day3-2a.jpg" alt="夜のチャリ" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Night Ride · 2">
+                    <img src="netherlands-photos/netherlands-day3-2b.jpg" alt="夜のチャリ" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Night Ride · 3">
+                    <img src="netherlands-photos/netherlands-day3-2c.jpg" alt="夜のチャリ" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Night Ride · 4">
+                    <img src="netherlands-photos/netherlands-day3-2d.jpg" alt="夜のチャリ、工事中のエリア" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">夜</span>
+                  <span class="event-place">アンネ・フランクの家、偶然発見</span>
+                </div>
+                <p class="event-comment">チャリで走ってたら、目の前に現れる。<br>予定してない観光地に、こうやって行き当たるのが旅の醍醐味。</p>
+                <div class="event-photos single">
+                  <figure class="photo" data-label="Day 03 · Photo 3">
+                    <img src="netherlands-photos/netherlands-day3-3.jpg" alt="アンネ・フランクの家、偶然発見" loading="lazy" style="object-position: center 20%;" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </article>
+
+        <!-- ============= DAY 04 ============= -->
+        <article class="day" id="day4">
+          <div class="day-card">
+            <div class="day-eyebrow">Day 04</div>
+            <h2 class="day-title">Amsterdam</h2>
+            <p class="day-lede">動物園 → 公文書館 → 中央駅 → 教会 → 徒歩2時間 → 夜<br>また中央駅 → レッドライト街。<br>オランダの街を、無限に走った1日。</p>
+
+            <ol class="events">
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">午前</span>
+                  <span class="event-place">いつもの動物園コース</span>
+                </div>
+                <p class="event-comment">2回目。もう恒例。</p>
+                <div class="event-photos single">
+                  <figure class="photo" data-label="Day 04 · Photo 0">
+                    <img src="netherlands-photos/netherlands-day4-0.jpg" alt="いつもの動物園コース、2回目" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">昼</span>
+                  <span class="event-place">アムステルダム市公文書館</span>
+                </div>
+                <p class="event-comment">意外と観光客少ない、地味に面白いスポット。<br>アムステルダムの歴史が、書類の中に残ってる。</p>
+                <div class="event-photos" style="grid-template-columns: repeat(auto-fit, minmax(200px, 280px));">
+                  <figure class="photo" data-label="Archive · 1">
+                    <img src="netherlands-photos/netherlands-day4-1a.jpg" alt="アムステルダム市公文書館" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Archive · 2">
+                    <img src="netherlands-photos/netherlands-day4-1b.jpg" alt="アムステルダム市公文書館" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">午後</span>
+                  <span class="event-place">アムステルダム中央駅</span>
+                </div>
+                <p class="event-comment">駅舎そのものが建築として綺麗。国の玄関口。</p>
+                <div class="event-photos single" style="grid-template-columns: minmax(240px, 480px);">
+                  <figure class="photo" data-label="Day 04 · Photo 2">
+                    <img src="netherlands-photos/netherlands-day4-2.jpg" alt="アムステルダム中央駅" loading="lazy" style="object-position: center 35%;" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">午後</span>
+                  <span class="event-place">聖ニコラス教会</span>
+                </div>
+                <p class="event-comment">中央駅の目の前。旅人の守護聖人ニコラウスに捧げられた教会。旅の途中で立ち寄る意味あり。</p>
+                <div class="event-photos single" style="grid-template-columns: minmax(240px, 480px);">
+                  <figure class="photo" data-label="Day 04 · Photo 3">
+                    <img src="netherlands-photos/netherlands-day4-3.jpg" alt="聖ニコラス教会" loading="lazy" style="object-position: center 25%; filter: brightness(1.16) saturate(1.03);" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">夕方</span>
+                  <span class="event-place">徒歩2時間、友人宅へ帰宅</span>
+                </div>
+                <p class="event-comment">なぜかチャリじゃなくて徒歩。<br>街を歩いて回るのも、これはこれで景色。</p>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">夜</span>
+                  <span class="event-place">再び、自転車で中央駅</span>
+                </div>
+                <p class="event-comment">夜の中央駅の空気を見に行く。昼と全然違う。<br>この駅、時間帯で顔が変わる。</p>
+                <div class="event-photos" style="grid-template-columns: repeat(auto-fit, minmax(200px, 260px));">
+                  <figure class="photo" data-label="Night Station · 1">
+                    <img src="netherlands-photos/netherlands-day4-4a.jpg" alt="夜の中央駅周辺" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Night Station · 2">
+                    <img src="netherlands-photos/netherlands-day4-4b.jpg" alt="夜の中央駅周辺" loading="lazy" style="object-position: 72% center;" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">深夜</span>
+                  <span class="event-place">レッドライト街、チャリで</span>
+                </div>
+                <p class="event-comment">ここもチャリで通り抜けるだけ。<br>夜のアムステルダムの、もう一つの顔。</p>
+                <div class="event-photos single" style="grid-template-columns: minmax(220px, 380px);">
+                  <figure class="photo photo--full" data-label="Day 04 · Photo 5">
+                    <img src="netherlands-photos/netherlands-day4-5.jpg" alt="レッドライト街、チャリで" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </article>
+
+        <!-- ============= DAY 05 ============= -->
+        <article class="day" id="day5">
+          <div class="day-card">
+            <div class="day-eyebrow">Day 05</div>
+            <h2 class="day-title">Amsterdam <span class="arrow">→</span> 風車のあるどこか</h2>
+            <p class="day-lede">動物園から南へ徒歩3時間、風車!</p>
+
+            <ol class="events">
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">午前</span>
+                  <span class="event-place">いつもの動物園コース</span>
+                </div>
+                <p class="event-comment">3回目。習慣化。</p>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">昼</span>
+                  <span class="event-place">「風車が見たい」</span>
+                </div>
+                <p class="event-comment">オランダといえば風車、と急に思い立つ。地図アプリで場所を確認、そこそこ遠い。</p>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">徒歩3時間</span>
+                  <span class="event-place">南へ、南へ</span>
+                </div>
+                <p class="event-comment">徒歩3時間、ヨーロッパの街並みは無限に歩ける。</p>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">到着</span>
+                  <span class="event-place">風車</span>
+                </div>
+                <p class="event-comment">オランダに来て風車を見た。目的完遂！</p>
+                <div class="event-photos">
+                  <figure class="photo" data-label="Day 05 · Photo 1">
+                    <img src="netherlands-photos/netherlands-day5-1.jpg" alt="風車" loading="lazy" style="object-position: center 65%; transform: scale(1.5);" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo" data-label="Day 05 · Photo 2">
+                    <img src="netherlands-photos/netherlands-day5-2.jpg" alt="風車 2" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">徒歩1時間</span>
+                  <span class="event-place">動物がいっぱいのところ</span>
+                </div>
+                <p class="event-comment">風車の後、さらに歩いて動物いっぱいのところへ。<br>「いつもの動物園コース」の遠征版。正直に、足が限界だった。</p>
+                <div class="event-photos single">
+                  <figure class="photo" data-label="Day 05 · Photo 3">
+                    <img src="netherlands-photos/netherlands-day5-3.jpg" alt="動物いっぱい" loading="lazy" style="object-position: center 35%;" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </article>
+
+        <!-- ============= DAY 06 ============= -->
+        <article class="day" id="day6">
+          <div class="day-card">
+            <div class="day-eyebrow">Day 06</div>
+            <h2 class="day-title">Amsterdam</h2>
+            <p class="day-lede">Van Goghを見て、barで「アレ」を試した。</p>
+
+            <ol class="events">
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">午前</span>
+                  <span class="event-place">ファン・ゴッホ美術館</span>
+                </div>
+                <p class="event-comment">オランダで見るゴッホ。生で見ると、絵の具の厚みまで見える。<br>教科書で見てたあの絵の、実物。</p>
+                <div class="event-photos" style="display: grid; grid-template-columns: 1359fr 1204fr 1204fr 1831fr; gap: 10px;">
+                  <figure class="photo photo--full" data-label="Van Gogh · 1">
+                    <img src="netherlands-photos/netherlands-day6-1a.jpg" alt="ファン・ゴッホ自画像（灰色のフェルト帽）" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo photo--full" data-label="Van Gogh · 2">
+                    <img src="netherlands-photos/netherlands-day6-1b.jpg" alt="ひまわり" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo photo--full" data-label="Van Gogh · 3">
+                    <img src="netherlands-photos/netherlands-day6-1c.jpg" alt="花魁（ジャポネズリー）" loading="lazy" onerror="this.remove()">
+                  </figure>
+                  <figure class="photo photo--full" data-label="Van Gogh · 4">
+                    <img src="netherlands-photos/netherlands-day6-1d.jpg" alt="花咲くアーモンドの木の枝" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">夜</span>
+                  <span class="event-place">幼馴染とその友達と、bar</span>
+                </div>
+                <p class="event-comment">拠点の幼馴染が友達を連れてくる。オランダ在住組との夜の会。</p>
+                <div class="event-photos single">
+                  <figure class="photo" data-label="Day 06 · Photo 2">
+                    <img src="netherlands-photos/netherlands-day6-2.jpg" alt="拠点の幼馴染が友達を連れてくる、オランダ在住組との夜の会" loading="lazy" onerror="this.remove()">
+                  </figure>
+                </div>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">bar内</span>
+                  <span class="event-place">「アレ」を吸ってみる</span>
+                </div>
+                <p class="event-comment">試したけど、ハマる気がしなかった。以上。</p>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">深夜</span>
+                  <span class="event-place">タバコ1カートン3000円、チャリで爆走</span>
+                </div>
+                <p class="event-comment">幼馴染の友人がもうすぐ日本に帰るとのことで、タバコを買える機会が。<br>チャリで爆走した。</p>
+              </li>
+            </ol>
+          </div>
+        </article>
+
+        <!-- ============= DAY 07 ============= -->
+        <article class="day" id="day7">
+          <div class="day-card">
+            <div class="day-eyebrow">Day 07</div>
+            <h2 class="day-title">Amsterdam <span class="arrow">→</span> Budapest</h2>
+            <p class="day-lede">何事もなく、帰った。</p>
+
+            <ol class="events">
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">Amsterdam</span>
+                  <span class="event-place">発</span>
+                </div>
+                <p class="event-comment">1週間の旅、終了。何のドラマもなく、静かに終わる。</p>
+              </li>
+
+              <li class="event">
+                <div class="event-head">
+                  <span class="event-time">Budapest</span>
+                  <span class="event-place">着</span>
+                </div>
+                <p class="event-comment">帰宅。フランス編と違って、今回は「他人の家を渡り歩いた達成感」じゃなくて、「幼馴染の家で息を吸える1週間があった安心感」。</p>
+              </li>
+            </ol>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- End CTAs -->
+      <div class="end-ctas">
+        <a href="travel.html" class="btn">← 旅行記一覧に戻る</a>
+        <a href="index.html#contact" class="btn btn-primary">相談する</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================== FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <p class="footer-brand">ハンガリーCS留学支援</p>
+          <p class="footer-tagline">Let's figure out the best solution for your current situation.</p>
+          <span class="footer-dm">Contact via DM 歓迎</span>
+        </div>
+        <div class="footer-col">
+          <h4>MENU</h4>
+          <a href="index.html#audience">対象</a>
+          <a href="about.html">運営者について</a>
+          <a href="services.html">相談メニュー</a>
+          <a href="index.html#articles">記事</a>
+          <a href="index.html#contact">相談する</a>
+        </div>
+        <div class="footer-col">
+          <h4>ELSEWHERE</h4>
+          <a href="https://twitter.com/" target="_blank" rel="noopener">X (Twitter)</a>
+          <a href="https://note.com/" target="_blank" rel="noopener">note</a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year">2026</span> ハンガリーCS留学支援</span>
+        <span>Budapest · Hungary</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Custom scroll offset for day-nav (runs before script.js) -->
+  <script>
+    (function () {
+      // Sticky-state detection: compact the day-nav when pinned under main nav
+      var dayNavElem = document.querySelector('.day-nav');
+      var mainNavElem = document.querySelector('.nav');
+      if (dayNavElem) {
+        var updateStuck = function () {
+          var mainH = mainNavElem ? mainNavElem.offsetHeight : 60;
+          if (dayNavElem.getBoundingClientRect().top <= mainH + 1) {
+            dayNavElem.classList.add('is-stuck');
+            document.body.classList.add('is-day-nav-stuck');
+          } else {
+            dayNavElem.classList.remove('is-stuck');
+            document.body.classList.remove('is-day-nav-stuck');
+          }
+        };
+        window.addEventListener('scroll', updateStuck, { passive: true });
+        updateStuck();
+      }
+
+      document.querySelectorAll('.day-nav a[href^="#day"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var id = a.getAttribute('href');
+          var target = document.querySelector(id);
+          if (!target) return;
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          var mainNav = document.querySelector('.nav');
+          var dayNav = document.querySelector('.day-nav');
+          var mainH = mainNav ? mainNav.offsetHeight : 0;
+          var dayH = dayNav ? dayNav.offsetHeight : 0;
+          var top = target.getBoundingClientRect().top + window.pageYOffset - mainH - dayH - 20;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        });
+      });
+
+      // Active-day highlighting via IntersectionObserver
+      var links = Array.prototype.slice.call(document.querySelectorAll('.day-nav a[href^="#day"]'));
+      var linkById = {};
+      links.forEach(function (l) {
+        linkById[l.getAttribute('href').slice(1)] = l;
+      });
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            links.forEach(function (l) { l.classList.remove('is-active'); });
+            var link = linkById[entry.target.id];
+            if (link) link.classList.add('is-active');
+          }
+        });
+      }, {
+        rootMargin: '-40% 0px -55% 0px',
+        threshold: 0
+      });
+
+      document.querySelectorAll('.day').forEach(function (d) { observer.observe(d); });
+    })();
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
