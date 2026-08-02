@@ -59,6 +59,31 @@
     });
   }
 
+  // -- Copy email to clipboard on click (mailto still fires as usual;
+  //    this is just a safety net for users with no default mail app)
+  document.querySelectorAll('.js-email-copy').forEach((link) => {
+    link.addEventListener('click', () => {
+      const email = link.dataset.email || link.textContent.trim();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(() => {
+          showToast('メールアドレスをコピーしました');
+        });
+      }
+    });
+  });
+
+  function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'copy-toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add('show'));
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    }, 2200);
+  }
+
   // -- Smooth in-page scroll to hash after nav sticky offset
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener('click', (e) => {
