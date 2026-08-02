@@ -64,24 +64,51 @@
   document.querySelectorAll('.js-email-copy').forEach((link) => {
     link.addEventListener('click', () => {
       const email = link.dataset.email || link.textContent.trim();
+
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(email).then(() => {
-          showToast('メールアドレスをコピーしました');
-        });
+        navigator.clipboard.writeText(email).then(
+          () => showToast('メールアドレスをコピーしました', 'success', email),
+          () => showToast('コピーに失敗しました。手動でご記入ください', 'error', email)
+        );
+      } else {
+        // Old browsers / non-secure context: clipboard API unavailable
+        showToast('コピーに失敗しました。手動でご記入ください', 'error', email);
       }
     });
   });
 
-  function showToast(message) {
+  function showToast(message, type, email) {
+    // Remove any toast already on screen so they don't stack
+    document.querySelectorAll('.copy-toast').forEach((t) => t.remove());
+
     const toast = document.createElement('div');
-    toast.className = 'copy-toast';
-    toast.textContent = message;
+    toast.className = `copy-toast copy-toast--${type}`;
+
+    const icon = document.createElement('span');
+    icon.className = 'copy-toast-icon';
+    icon.textContent = type === 'success' ? '✓' : '!';
+    toast.appendChild(icon);
+
+    const text = document.createElement('span');
+    text.className = 'copy-toast-text';
+    text.textContent = message;
+    toast.appendChild(text);
+
+    if (type === 'error' && email) {
+      const addr = document.createElement('span');
+      addr.className = 'copy-toast-address';
+      addr.textContent = email;
+      toast.appendChild(addr);
+    }
+
     document.body.appendChild(toast);
     requestAnimationFrame(() => toast.classList.add('show'));
+
+    const duration = type === 'error' ? 4000 : 2400;
     setTimeout(() => {
       toast.classList.remove('show');
       setTimeout(() => toast.remove(), 300);
-    }, 2200);
+    }, duration);
   }
 
   // -- Smooth in-page scroll to hash after nav sticky offset
