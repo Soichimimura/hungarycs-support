@@ -419,13 +419,13 @@
           <p class="side-note">迷っている段階でも、気軽にどうぞ。</p>
         </div>
 
-        <form class="form" id="contactForm" action="https://formsubmit.co/souichiromimura@gmail.com" method="POST">
-          <!-- FormSubmit configuration — see comments below the file for setup -->
-          <input type="hidden" name="_subject" value="【ハンガリーCS留学支援】新しい相談">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_autoresponse" value="ご連絡ありがとうございます。3日以内に返信します。— ハンガリーCS留学支援 / Soichiro">
-          <input type="hidden" name="_next" value="thanks.html">
+        <form class="form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+          <!-- Web3Forms 設定（送信先メールアドレスはアクセスキーに紐づいています） -->
+          <input type="hidden" name="access_key" value="f709ed01-ce4e-4e33-9c3d-a49f150ef693">
+          <input type="hidden" name="subject" value="【ハンガリーCS留学支援】新しい相談">
+          <input type="hidden" name="from_name" value="ハンガリーCS留学支援">
+          <input type="hidden" name="redirect" value="https://hungarycs-support.com/thanks.html">
+          <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
           <div class="field">
             <label for="name">お名前 <span class="opt">ニックネームOK</span></label>
             <input type="text" id="name" name="name" required autocomplete="name">
